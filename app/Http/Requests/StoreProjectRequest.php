@@ -13,7 +13,7 @@ class StoreProjectRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class StoreProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|max:100|unique:projects',
+            'description' => 'required',
+            'languages' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Titolo del progetto obbligatorio',
+            'title.max' => 'lunghezza massima consentita è di 100 caratteri',
+            'title.unique' => 'Il titolo è gia esistente',
+            'description.required' => 'Descrizione obbligatoria',
+            'languages.required' => 'Linguaggio di programmazione obbligatorio',
         ];
     }
 }

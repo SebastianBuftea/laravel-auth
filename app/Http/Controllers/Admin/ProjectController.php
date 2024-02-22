@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -16,7 +17,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::orderByDesc('id')->get();
         return view('admin.projects.projects', compact('projects'));
     }
 
@@ -27,7 +28,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create_project');
     }
 
     /**
@@ -38,7 +39,16 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $form_data = $request->all();
+        $project = new Project();
+        $project->title = $form_data['title'];
+        $project->description = $form_data['description'];
+        $project->languages = $form_data['languages'];
+        $project->relese_date = $form_data['relese_date'];
+        $slug = Str::slug($project->title, '-');
+        $project->slug = $slug;
+        $project->save();
+        return redirect()->route('admin.projects.index');
     }
 
     /**
@@ -60,7 +70,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit_project', compact('project'));
     }
 
     /**
@@ -72,7 +82,15 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $form_data = $request->all();
+        $project->title = $form_data['title'];
+        $project->description = $form_data['description'];
+        $project->languages = $form_data['languages'];
+        $project->relese_date = $form_data['relese_date'];
+        $slug = Str::slug($project->title, '-');
+        $project->slug = $slug;
+        $project->update();
+        return redirect()->route('admin.projects.index');
     }
 
     /**
@@ -83,6 +101,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return redirect()->route('admin.projects.index');
     }
 }
