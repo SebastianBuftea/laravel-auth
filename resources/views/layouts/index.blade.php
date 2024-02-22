@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container m-0">
+    <div class="container-fluid m-0">
         <div class="row ">
             {{-- sidebar --}}
             <div class="col-2  bg-dark ">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-10 m-0">
+            <div class="col">
                 @yield('admin')
             </div>
         </div>
