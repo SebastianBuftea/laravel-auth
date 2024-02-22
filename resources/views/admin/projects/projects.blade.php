@@ -22,6 +22,19 @@
                         <td>{{ $project->slug }}</td>
                         <td>{{ $project->languages }}</td>
                         <td>{{ $project->relese_date }}</td>
+                        <td>
+                            <a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-eye" style="color: #000000;"></i>
+                                </button>
+                            </a>
+                            <button class="btn btn-danger">
+                                <i class="fa-solid fa-trash" style="color: #000000;"></i>
+                            </button>
+                            <button class="btn btn-warning">
+                                <i class="fa-solid fa-pen " style="color: #000000;"></i>
+                            </button>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
