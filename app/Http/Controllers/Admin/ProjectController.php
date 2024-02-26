@@ -46,6 +46,7 @@ class ProjectController extends Controller
         $project->description = $form_data['description'];
         $project->languages = $form_data['languages'];
         $project->relese_date = $form_data['relese_date'];
+
         if ($request->hasFile('mockup_image')) {
             $path = Storage::disk('public')->put('project_image', $form_data['mockup_image']);
             $form_data['mockup_image'] = $path;
@@ -117,6 +118,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->mockup_image != null) {
+            Storage::disk('public')->delete($project->mockup_image);
+        }
         $project->delete();
         return redirect()->route('admin.projects.index');
     }
