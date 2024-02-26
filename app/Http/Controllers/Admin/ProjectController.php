@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -45,6 +46,12 @@ class ProjectController extends Controller
         $project->description = $form_data['description'];
         $project->languages = $form_data['languages'];
         $project->relese_date = $form_data['relese_date'];
+
+        if ($request->hasFile('mockup_image')) {
+            $path = Storage::disk('public')->put('project_image', $form_data['mockup_image']);
+            $form_data['mockup_image'] = $path;
+        };
+        $project->mockup_image = $form_data['mockup_image'];
         $slug = Str::slug($project->title, '-');
         $project->slug = $slug;
         $project->save();

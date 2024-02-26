@@ -14,7 +14,7 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('admin.projects.store') }}" method="post">
+                <form action="{{ route('admin.projects.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group my-2">
                         <label for="title" class="text-white"><strong>Titolo</strong></label>
@@ -39,6 +39,12 @@
                         <label for="languages" class="text-white"><strong>Linguaggi di programmazione</strong></label>
                         <input type="text" name="languages" id="languages" placeholder="languages" required
                             class="form-control @error('languages') is-invalid @enderror" value="{{ old('languages') }}">
+
+                    </div>
+                    <div class="form-group my-2">
+                        <label for="mockup_image" class="text-white"><strong>inserire il mockup del
+                                progetto</strong></label>
+                        <input type="file" name="mockup_image" id="mockup_image" class="form-control ">
 
                     </div>
                     <div class="form-group mt-4 d-flex justify-content-end">
