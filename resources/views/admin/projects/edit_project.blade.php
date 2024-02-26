@@ -14,7 +14,8 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('admin.projects.update', ['project' => $project->id]) }}" method="post">
+                <form action="{{ route('admin.projects.update', ['project' => $project->id]) }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group my-2">
@@ -41,6 +42,15 @@
                         <label for="languages" class="text-white"><strong>Linguaggi di programmazione</strong></label>
                         <input type="text" name="languages" id="languages" placeholder="languages" required
                             class="form-control @error('languages') is-invalid @enderror" value="{{ $project->languages }}">
+
+                    </div>
+                    <div class="form-group my-2">
+                        @if ($project->mockup_image !== null)
+                            <img src="{{ asset('/storage/' . $project->mockup_image) }}" alt=""> <br>
+                        @endif
+                        <label for="mockup_image" class="text-white"><strong>inserire il mockup del
+                                progetto</strong></label>
+                        <input type="file" name="mockup_image" id="mockup_image" class="form-control ">
 
                     </div>
                     <div class="form-group mt-4 d-flex justify-content-end">
